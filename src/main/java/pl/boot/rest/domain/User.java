@@ -17,8 +17,8 @@ public class User {
 	
 	@Id
 	@Column(name="id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq_gen")
-	@SequenceGenerator(name = "users_seq_gen", sequenceName = "users_id_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
+	@SequenceGenerator(name = "users_seq", sequenceName = "users_seq_gen")
 	private Integer id;
 
 	@NotNull(message = "Username is null")

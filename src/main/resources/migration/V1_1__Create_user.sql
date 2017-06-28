@@ -4,3 +4,5 @@ create table users(
 	is_active boolean not null,
 	created timestamp without time zone DEFAULT now() NOT NULL
 );
+
+create sequence users_seq_gen;
