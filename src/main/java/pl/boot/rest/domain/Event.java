@@ -1,7 +1,11 @@
 package pl.boot.rest.domain;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
@@ -19,8 +24,19 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity(name="events")
 public class Event {
 	
+	public void update(Event event) {
+		date = event.getDate();
+		imageUrl = event.getImageUrl();				
+		name = event.getName();
+		onlineUrl = event.getOnlineUrl();
+		price = event.getPrice();
+		time = event.getTime();		 
+		sessions.clear();
+		  
+	}
+	
 	@Id
-	@Column(name="id")
+	@Column(name="event_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "events_seq")
 	@SequenceGenerator(name = "events_seq", sequenceName = "events_seq_gen")
 	private Integer id;
@@ -48,6 +64,17 @@ public class Event {
 	@OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
 	private Location location;
+	
+	@OneToMany(mappedBy="event", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, orphanRemoval=true) 
+	private List<Session> sessions;
+
+	public List<Session> getSessions() {
+		return sessions;
+	}
+
+	public void setSessions(List<Session> sessions) {
+		this.sessions = sessions;
+	}
 
 	public Location getLocation() {
 		return location;

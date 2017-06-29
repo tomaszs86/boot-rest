@@ -1,12 +1,10 @@
 package pl.boot.rest.web;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +16,7 @@ import org.springframework.http.HttpStatus;
 
 import pl.boot.rest.domain.Event;
 import pl.boot.rest.domain.Location;
+import pl.boot.rest.domain.Session;
 import pl.boot.rest.exception.EventNotFoundException;
 import pl.boot.rest.exception.MyException;
 import pl.boot.rest.repository.EventRepository;
@@ -28,7 +27,7 @@ public class EventController {
 
 	@Autowired
 	private EventRepository eventRepository;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Event> getEvents() {	
 		
@@ -51,10 +50,14 @@ public class EventController {
 		if(resource == null) throw new MyException("example");		
 	
 		Location location = resource.getLocation();
-		location.setEvent(resource);
+		location.setEvent(resource);	
+		
+		for(Session session : resource.getSessions()) {
+			session.setEvent(resource);			
+		}
 		
 		Event event = eventRepository.save(resource);		
-		return event.getId();	
+		return event.getId();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -74,18 +77,13 @@ public class EventController {
 		
 	  if (event == null) throw new EventNotFoundException(id.toString());	
 	  
-	  event.setDate(resource.getDate());
-	  event.setImageUrl(resource.getImageUrl());
-	  event.setName(resource.getName());
-	  event.setOnlineUrl(resource.getOnlineUrl());
-	  event.setPrice(resource.getPrice());
-	  event.setTime(resource.getTime());
+	  event.update(resource);
 	  
-	  Location location = event.getLocation();
-	  location.setAddress(resource.getLocation().getAddress());
-	  location.setCity(resource.getLocation().getCity());
-	  location.setCountry(resource.getLocation().getCountry());
-	
-	  eventRepository.save(event);
+	  for(Session session : resource.getSessions()) {
+		  	session.setEvent(event);
+			event.getSessions().add(session);
+		}
+	  
+	  eventRepository.save(event);	 
    }	
 }

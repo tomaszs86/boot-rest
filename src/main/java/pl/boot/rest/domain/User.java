@@ -15,8 +15,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity(name="users")
 public class User {
 	
+	public void update(User user) {
+		this.username = user.getUsername();
+		this.isActive = user.getIsActive();
+		this.created = user.getCreated();
+	}
+	
 	@Id
-	@Column(name="id")
+	@Column(name="user_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
 	@SequenceGenerator(name = "users_seq", sequenceName = "users_seq_gen")
 	private Integer id;

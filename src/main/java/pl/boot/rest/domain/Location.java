@@ -2,23 +2,21 @@ package pl.boot.rest.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name="locations")
 public class Location {
 
+	
+	
 	@Id 
-	@Column(name="id") 
+	@Column(name="location_id") 
 	private Integer id;
 	
 	@Column(name="address", nullable = false)	
@@ -32,7 +30,7 @@ public class Location {
 
 	@MapsId 
     @OneToOne(mappedBy = "location")
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "event_id")
 	@JsonIgnore
 	private Event event;
 

@@ -93,10 +93,7 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
  
-        user.setUsername(userDTO.getUsername());
-        user.setIsActive(userDTO.getIsActive());
-        user.setCreated(userDTO.getCreated());
-        
+        user.update(userDTO);        
         userService.save(user);
         
         return new ResponseEntity<>(user, HttpStatus.OK);        

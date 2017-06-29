@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Product {
 
 	@Id
-	@Column(name="id")
+	@Column(name="product_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "products_seq")
 	@SequenceGenerator(name = "products_seq", sequenceName = "products_seq_gen")
 	private Integer id;
@@ -52,6 +52,15 @@ public class Product {
 	@JsonIgnore
 	@Column(name="tags", nullable = true)	
 	private String dbTags;
+	
+	public void update(Product product) {		
+		description = product.getDescription();
+		price = product.getPrice();
+		productCode = product.getProductCode();
+		productName = product.getProductName();
+		releaseDate = product.getReleaseDate();
+		starRating = product.getStarRating();        
+	}
 	
 	public String getDbTags() {
 		return dbTags;

@@ -87,13 +87,7 @@ public class ProductController {
 			return ResponseEntity.notFound().build();
 		}
 
-		product.setDescription(productDTO.getDescription());
-        product.setPrice(productDTO.getPrice());
-        product.setProductCode(productDTO.getProductCode());
-        product.setProductName(productDTO.getProductName());
-        product.setReleaseDate(productDTO.getReleaseDate());
-        product.setStarRating(productDTO.getStarRating());
-        
+        product.update(productDTO);        
         productRepository.save(product);
         
         return new ResponseEntity<>(productDTO, HttpStatus.OK);        
