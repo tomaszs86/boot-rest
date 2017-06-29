@@ -1,6 +1,9 @@
-create table locations(
-    id int primary key not null,    
-    address varchar(100) not null,    
-    city varchar(100) not null,
-    country varchar(100) not null
+CREATE TABLE locations
+(
+  id integer NOT NULL,
+  address character varying(255) NOT NULL,
+  city character varying(255) NOT NULL,
+  country character varying(255) NOT NULL,
+  CONSTRAINT locations_pkey PRIMARY KEY (id)
 );
+

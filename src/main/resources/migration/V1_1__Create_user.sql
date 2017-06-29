@@ -1,8 +1,18 @@
-create table users(
-    id int primary key not null,
-    username varchar(100) not null,
-	is_active boolean not null,
-	created timestamp without time zone DEFAULT now() NOT NULL
+CREATE TABLE users
+(
+  id integer NOT NULL,
+  created timestamp without time zone NOT NULL,
+  is_active boolean NOT NULL,
+  username character varying(255) NOT NULL,
+  CONSTRAINT users_pkey PRIMARY KEY (id)
 );
 
-create sequence users_seq_gen;
+
+  CREATE SEQUENCE users_seq_gen
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+ALTER TABLE users_seq_gen
+  OWNER TO postgres;

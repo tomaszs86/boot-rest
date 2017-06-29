@@ -1,11 +1,20 @@
-create table events(
-    id int primary key not null,    
-    name varchar(100) not null,    
-    date timestamp without time zone DEFAULT now() NOT NULL,
-    time varchar(100) not null,     
-    price decimal not null,   
-    image_url varchar(100) null,
-    online_url varchar(100) null
+CREATE TABLE events
+(
+  id integer NOT NULL,
+  date timestamp without time zone NOT NULL,
+  image_url character varying(255) NOT NULL,
+  name character varying(255) NOT NULL,
+  online_url character varying(255),
+  price double precision NOT NULL,
+  "time" character varying(255) NOT NULL,
+  CONSTRAINT events_pkey PRIMARY KEY (id)
 );
-
-create sequence events_seq_gen;
+  
+  CREATE SEQUENCE events_seq_gen
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+ALTER TABLE events_seq_gen
+  OWNER TO postgres;

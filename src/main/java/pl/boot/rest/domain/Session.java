@@ -12,5 +12,18 @@ public class Session {
 		  abstract: string;
 		  voters: string[];
 		}
-	*/
+		
+		
+	export interface Event {
+		
+		  location?: {
+		    address: string;
+		    city: string;
+		    country: string;
+		  };		  
+		  sessions: Session[]; 
+		}
+		*/
+	
+	
 }

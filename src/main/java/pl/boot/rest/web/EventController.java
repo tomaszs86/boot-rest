@@ -1,5 +1,6 @@
 package pl.boot.rest.web;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 
 import pl.boot.rest.domain.Event;
+import pl.boot.rest.domain.Location;
 import pl.boot.rest.exception.EventNotFoundException;
 import pl.boot.rest.exception.MyException;
 import pl.boot.rest.repository.EventRepository;
@@ -48,8 +50,11 @@ public class EventController {
       
 		if(resource == null) throw new MyException("example");		
 	
+		Location location = resource.getLocation();
+		location.setEvent(resource);
+		
 		Event event = eventRepository.save(resource);		
-		return event.getId();
+		return event.getId();	
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -59,23 +64,28 @@ public class EventController {
 		eventRepository.delete(id);
 	}
 	
-	   @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
-	   @ResponseStatus( HttpStatus.OK )
-	   public void update( @PathVariable("id") Integer id, @Valid @RequestBody Event resource ){
+   @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
+   @ResponseStatus( HttpStatus.OK )
+   public void update( @PathVariable("id") Integer id, @Valid @RequestBody Event resource ){
 
-		  if(resource == null) throw new EventNotFoundException(id.toString());
-		  
-		  Event event = eventRepository.findOne(id);			
-			
-		  if (event == null) throw new EventNotFoundException(id.toString());	
-		  
-		  event.setDate(resource.getDate());
-		  event.setImageUrl(resource.getImageUrl());
-		  event.setName(resource.getName());
-		  event.setOnlineUrl(resource.getOnlineUrl());
-		  event.setPrice(resource.getPrice());
-		  event.setTime(resource.getTime());
-		  
-		  eventRepository.save(event);
-	   }	
+	  if(resource == null) throw new EventNotFoundException(id.toString());
+	  
+	  Event event = eventRepository.findOne(id);			
+		
+	  if (event == null) throw new EventNotFoundException(id.toString());	
+	  
+	  event.setDate(resource.getDate());
+	  event.setImageUrl(resource.getImageUrl());
+	  event.setName(resource.getName());
+	  event.setOnlineUrl(resource.getOnlineUrl());
+	  event.setPrice(resource.getPrice());
+	  event.setTime(resource.getTime());
+	  
+	  Location location = event.getLocation();
+	  location.setAddress(resource.getLocation().getAddress());
+	  location.setCity(resource.getLocation().getCity());
+	  location.setCountry(resource.getLocation().getCountry());
+	
+	  eventRepository.save(event);
+   }	
 }

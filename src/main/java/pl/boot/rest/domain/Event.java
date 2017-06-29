@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
@@ -43,11 +44,11 @@ public class Event {
 	
 	@Column(name="online_url", nullable = true)	
 	private String onlineUrl;
-	
-	/*
+
+	@OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
 	private Location location;
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "location", cascade = CascadeType.ALL)
 	public Location getLocation() {
 		return location;
 	}
@@ -55,8 +56,7 @@ public class Event {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	*/
-
+	
 	public Integer getId() {
 		return id;
 	}
