@@ -1,0 +1,1 @@
+INSERT INTO events(event_id, name, date, time, price, image_url, online_url) VALUES(1, 'Spring session', current_timestamp, '18:00', 10, 'image-url', 'online-url');
