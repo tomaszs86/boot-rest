@@ -45,7 +45,7 @@ public class EventController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)	
-    public Integer create(@Valid @RequestBody Event resource) {
+    public Event create(@Valid @RequestBody Event resource) {
       
 		if(resource == null) throw new MyException("example");		
 	
@@ -56,8 +56,7 @@ public class EventController {
 			session.setEvent(resource);			
 		}
 		
-		Event event = eventRepository.save(resource);		
-		return event.getId();
+		return eventRepository.save(resource);		
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -69,7 +68,7 @@ public class EventController {
 	
    @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
    @ResponseStatus( HttpStatus.OK )
-   public void update( @PathVariable("id") Integer id, @Valid @RequestBody Event resource ){
+   public Event update( @PathVariable("id") Integer id, @Valid @RequestBody Event resource ){
 
 	  if(resource == null) throw new EventNotFoundException(id.toString());
 	  
@@ -84,6 +83,8 @@ public class EventController {
 			event.getSessions().add(session);
 		}
 	  
-	  eventRepository.save(event);	 
+	  eventRepository.save(event);	
+	  
+	  return event;
    }	
 }

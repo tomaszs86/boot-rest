@@ -1,11 +1,10 @@
 package pl.boot.rest.domain;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +22,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity(name="events")
 public class Event {
+	
+	public Event() {
+		sessions = new ArrayList<Session>();
+	}
 	
 	public void update(Event event) {
 		date = event.getDate();
