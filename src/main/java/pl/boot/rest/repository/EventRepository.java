@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.boot.rest.domain.Event;
 import pl.boot.rest.projection.EventWithoutDependencies;
 
-@RepositoryRestResource(collectionResourceRel = "event", path = "event")
+//@RepositoryRestResource(collectionResourceRel = "event", path = "event")
 public interface EventRepository extends JpaRepository<Event, Integer>, EventRepositoryCustom  {
 
 	List<Event> findByLocationCity(String city);
