@@ -27,9 +27,9 @@ import org.springframework.http.HttpStatus;
 import pl.boot.rest.domain.Event;
 import pl.boot.rest.domain.Location;
 import pl.boot.rest.domain.Session;
+import pl.boot.rest.domain.projection.EventWithoutDependencies;
 import pl.boot.rest.exception.EventNotFoundException;
 import pl.boot.rest.exception.MyException;
-import pl.boot.rest.projection.EventWithoutDependencies;
 import pl.boot.rest.repository.EventRepository;
 
 @RestController
